@@ -1,0 +1,12 @@
+body {
+width: 200px;
+}
+.hidden{
+display: none;
+}
+#add_plugin {
+    width:5px;height:5px;
+}
+.button_round {
+	border-radius: 100%;
+}

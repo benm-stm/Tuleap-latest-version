@@ -1,0 +1,42 @@
+// Saves options to localStorage.
+function save_options() {
+    try {
+		for (i = 0; i < element_counter; i++) {
+			localStorage["plugin_"+1] = document.getElementById("plugin_"+1).value.replace(/\/*$/, '');
+		}
+		localStorage["element_counter"] = element_counter;
+        chrome.runtime.reload();
+    } catch (e) {
+    }
+}
+ 
+// Restores select box state to saved value from localStorage.
+function restore_options(element) {
+    document.getElementById(element).value = localStorage[element];
+	element_counter = localStorage["element_counter"];
+}
+
+
+if( element_counter ) {
+	for (i = 0; i < element_counter; i++) {
+		document.addEventListener('DOMContentLoaded', restore_options("plugin_"+i));
+	}
+} else {
+	var element_counter = 1;
+}
+
+document.querySelector('#save').addEventListener('click', save_options);
+document.querySelector('#add_plugin').addEventListener('click', append_field);
+
+function append_field() {
+    add("tuleap_plugins", "element_name");
+	element_counter++;
+}
+
+function add(parent, element_name) {   
+    var element = document.createElement("input");
+    element.id = element_name;
+
+    var parent = document.getElementById(parent);  
+    parent.appendChild(element);
+}
